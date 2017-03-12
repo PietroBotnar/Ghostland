@@ -1,0 +1,173 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{4973297A-B162-4923-A75B-AF5540474D4C}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>template</RootNamespace>
+    <ProjectName>MyGame</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>NotSet</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>NotSet</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <OpenMPSupport>false</OpenMPSupport>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>%(AdditionalDependencies); glew32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>./lib/</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>./lib/</AdditionalLibraryDirectories>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies); glew32.lib</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="Systems\ScreenControlSystem.cpp" />
+    <ClCompile Include="Systems\AISystem.cpp" />
+    <ClCompile Include="Systems\GameplayReactionSystem.cpp" />
+    <ClCompile Include="Systems\CollisionDetectionSystem.cpp" />
+    <ClCompile Include="Objects\AlphaSphere.cpp" />
+    <ClCompile Include="Objects\CrossFade.cpp" />
+    <ClCompile Include="Data\Vector3f.cpp" />
+    <ClCompile Include="Factory.cpp" />
+    <ClCompile Include="Systems\LightingSystem.cpp" />
+    <ClCompile Include="Objects\SpriteAnimation.cpp" />
+    <ClCompile Include="Systems\FXRenderSystem.cpp" />
+    <ClCompile Include="Systems\PlayerControllerSystem.cpp" />
+    <ClCompile Include="Systems\PhysicsSystem.cpp" />
+    <ClCompile Include="ECS\ComponentManager.cpp" />
+    <ClCompile Include="Systems\AudioSystem.cpp" />
+    <ClCompile Include="Systems\CameraSystem.cpp" />
+    <ClCompile Include="ECS\Entity.cpp" />
+    <ClCompile Include="ECS\EntityManager.cpp" />
+    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GameWindow.cpp" />
+    <ClCompile Include="Objects\HighResolutionTimer.cpp" />
+    <ClCompile Include="Systems\WorldRenderSystem.cpp" />
+    <ClCompile Include="Objects\SkyboxTerrain.cpp" />
+    <ClCompile Include="Objects\Texture.cpp" />
+    <ClCompile Include="Systems\UIRenderSystem.cpp" />
+    <ClCompile Include="ECS\World.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Data\Range.h" />
+    <ClInclude Include="Components\RangeComponents.h" />
+    <ClInclude Include="Events\EnemySpawnEvent.h" />
+    <ClInclude Include="Events\KeyboardInputEvent.h" />
+    <ClInclude Include="Systems\ScreenControlSystem.h" />
+    <ClInclude Include="Systems\AISystem.h" />
+    <ClInclude Include="Data\CollisionInfo.h" />
+    <ClInclude Include="Events\CollisionEvent.h" />
+    <ClInclude Include="Systems\GameplayReactionSystem.h" />
+    <ClInclude Include="Systems\CollisionDetectionSystem.h" />
+    <ClInclude Include="Data\Vector3f.h" />
+    <ClInclude Include="Events\AlphaSpereFXEvent.h" />
+    <ClInclude Include="Objects\MeshEntry.h" />
+    <ClInclude Include="Objects\AlphaSphere.h" />
+    <ClInclude Include="Events\AnimationFXEvent.h" />
+    <ClInclude Include="Components\BoxColliderComponent.h" />
+    <ClInclude Include="Components\RigidBodyComponent.h" />
+    <ClInclude Include="Objects\CrossFade.h" />
+    <ClInclude Include="Events\CrossfadeFXEvent.h" />
+    <ClInclude Include="Data\Enums.h" />
+    <ClInclude Include="Events\DisplayTextEvent.h" />
+    <ClInclude Include="ECS\EventTypes.h" />
+    <ClInclude Include="Factory.h" />
+    <ClInclude Include="Components\MeshAssetComponent.h" />
+    <ClInclude Include="Events\FogFXEvent.h" />
+    <ClInclude Include="Systems\LightingSystem.h" />
+    <ClInclude Include="Objects\SpriteAnimation.h" />
+    <ClInclude Include="Systems\FXRenderSystem.h" />
+    <ClInclude Include="Systems\PlayerControllerSystem.h" />
+    <ClInclude Include="Systems\PhysicsSystem.h" />
+    <ClInclude Include="ECS\ComponentManager.h" />
+    <ClInclude Include="ECS\IEvent.h" />
+    <ClInclude Include="Components\PlayerTag.h" />
+    <ClInclude Include="Components\PrefabComponent.h" />
+    <ClInclude Include="ECS\IFiniteStateMachine.h" />
+    <ClInclude Include="ECS\GameFSM.h" />
+    <ClInclude Include="Systems\AudioSystem.h" />
+    <ClInclude Include="Events\SoundEvent.h" />
+    <ClInclude Include="Systems\CameraSystem.h" />
+    <ClInclude Include="ECS\ComponentType.h" />
+    <ClInclude Include="ECS\Entity.h" />
+    <ClInclude Include="ECS\EntityManager.h" />
+    <ClInclude Include="Game.h" />
+    <ClInclude Include="GameWindow.h" />
+    <ClInclude Include="Objects\HighResolutionTimer.h" />
+    <ClInclude Include="ECS\IComponent.h" />
+    <ClInclude Include="Components\MovementComponent.h" />
+    <ClInclude Include="Components\TransformComponent.h" />
+    <ClInclude Include="Systems\WorldRenderSystem.h" />
+    <ClInclude Include="Objects\SkyboxTerrain.h" />
+    <ClInclude Include="ECS\ISystem.h" />
+    <ClInclude Include="Components\TextComponent.h" />
+    <ClInclude Include="Objects\Texture.h" />
+    <ClInclude Include="Systems\UIRenderSystem.h" />
+    <ClInclude Include="Data\Vertex.h" />
+    <ClInclude Include="ECS\World.h" />
+    <ClInclude Include="Events\TorchToggleEvent.h" />
+    <ClInclude Include="Objects\Timer.h" />
+    <ClInclude Include="Components\TimerComponent.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

@@ -1,0 +1,17 @@
+# ===================================== #
+# Visual Studio / MonoDevelop generated #
+# ===================================== #
+[Ee]xported[Oo]bj/
+/*.userprefs
+/*.csproj
+/*.pidb
+/*.suo
+/*.sln
+/*.user
+/*.booproj
+
+# =========== #
+# Folders #
+# =========== #
+[Dd]ebug*
+[Rr]elease*
