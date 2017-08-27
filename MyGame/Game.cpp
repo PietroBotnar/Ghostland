@@ -1,20 +1,3 @@
-/* 
-OpenGL Template for IN3026
-City University London, School of Informatics
-Source code drawn from a number of sources and examples, including contributions from
- - Ben Humphrey (gametutorials.com), Christy Quinn, Sam Kellett, and others
-
- For educational use by School of Informatics, City University London UK.
-
- This template contains a skybox, simple terrain, camera, lighting, mesh loader, sipmle physics, texturing, audio
-
- Potential ways to modify the code:  Add new geometry types, change the terrain, load new meshes, set up lighting, 
- add in additional music / sound FX, modify camera control, put in a startup screen, collision detection, etc.
- 
- Template version 3.0a 25/08/2014
- Dr. Greg Slabaugh (gregory.slabaugh.1@city.ac.uk) 
-*/
-
 
 #include "Game.h"
 #include "Systems/WorldRenderSystem.h"
@@ -39,22 +22,22 @@ Source code drawn from a number of sources and examples, including contributions
 #include "ECS/GameFSM.h"
 
 // Constructor.  
-Game::Game()  
+Game::Game()
 {
 	m_dt = 0.0f;
 }
 
 // Destructor.
-Game::~Game() 
+Game::~Game()
 {
 	delete _world;
 }
 
 // Initialise the game by loading assets and setting up the scene.  Note, it's best to make OpenGL calls here since we know the rendering context is available.
-void Game::Initialise() 
+void Game::Initialise()
 {
-	_world		= new World();
-	_factory	= new Factory(_world);
+	_world = new World();
+	_factory = new Factory(_world);
 
 	_world->Factory = _factory;
 
@@ -82,7 +65,7 @@ void Game::Initialise()
 	uiRender->Create(m_GameWindow.GetHdc(), "Arial", 18);
 
 	_world->RegisterSystem(uiRender);
-	
+
 	_factory->CreatePlayer(CVector3f(0.0f, 2.0f, -100.0f));
 
 	_factory->CreateSceneLevel();
@@ -94,7 +77,7 @@ void Game::Initialise()
 }
 
 // Update world and game window
-void Game::Update() 
+void Game::Update()
 {
 	_factory->Update(m_dt);
 	_world->Update(m_dt);
@@ -108,15 +91,15 @@ void Game::GameLoop()
 	// This code implements a variable timer
 	m_highResolutionTimer.Start();
 	Update();
-	
+
 	m_dt = m_highResolutionTimer.Elapsed();
 }
 
-WPARAM Game::Execute() 
+WPARAM Game::Execute()
 {
 	m_GameWindow.Init(m_hinstance);
 
-	if(!m_GameWindow.GetHdc()) {
+	if (!m_GameWindow.GetHdc()) {
 		return 1;
 	}
 
@@ -128,17 +111,18 @@ WPARAM Game::Execute()
 
 	MSG msg;
 
-	while(1) {													
-		if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE)) { 
-			if(msg.message == WM_QUIT) {
+	while (1) {
+		if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE)) {
+			if (msg.message == WM_QUIT) {
 				break;
 			}
 
-			TranslateMessage(&msg);	
+			TranslateMessage(&msg);
 			DispatchMessage(&msg);
-		}else{
+		}
+		else {
 			GameLoop();
-		} 
+		}
 	}
 
 	m_GameWindow.Deinit();
@@ -146,7 +130,7 @@ WPARAM Game::Execute()
 	return(msg.wParam);
 }
 
-LRESULT Game::ProcessEvents(HWND window,UINT message, WPARAM w_param, LPARAM l_param) 
+LRESULT Game::ProcessEvents(HWND window, UINT message, WPARAM w_param, LPARAM l_param)
 {
 	LRESULT result = 0;
 
@@ -173,7 +157,7 @@ LRESULT Game::ProcessEvents(HWND window,UINT message, WPARAM w_param, LPARAM l_p
 		BeginPaint(window, &ps);
 		EndPaint(window, &ps);
 		break;
-		
+
 	case WM_DESTROY:
 		PostQuitMessage(0);
 		break;
@@ -186,14 +170,14 @@ LRESULT Game::ProcessEvents(HWND window,UINT message, WPARAM w_param, LPARAM l_p
 	return result;
 }
 
-Game& Game::GetInstance() 
+Game& Game::GetInstance()
 {
 	static Game instance;
 
 	return instance;
 }
 
-void Game::SetHinstance(HINSTANCE hinstance) 
+void Game::SetHinstance(HINSTANCE hinstance)
 {
 	m_hinstance = hinstance;
 }
@@ -204,7 +188,7 @@ LRESULT CALLBACK WinProc(HWND window, UINT message, WPARAM w_param, LPARAM l_par
 	return Game::GetInstance().ProcessEvents(window, message, w_param, l_param);
 }
 
-int WINAPI WinMain(HINSTANCE hinstance, HINSTANCE, PSTR, int) 
+int WINAPI WinMain(HINSTANCE hinstance, HINSTANCE, PSTR, int)
 {
 	Game &game = Game::GetInstance();
 	game.SetHinstance(hinstance);

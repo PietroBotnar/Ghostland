@@ -5,7 +5,7 @@
 #include ".\include\glu.h"									// Header File For The GLu32 Library
 #include <stdio.h>
 
-GameWindow& GameWindow::GetInstance() 
+GameWindow& GameWindow::GetInstance()
 {
 	static GameWindow instance;
 
@@ -17,23 +17,24 @@ GameWindow::GameWindow()
 	m_fullScreen = false; // set to true for full screen
 }
 
-HDC GameWindow::Init(HINSTANCE hinstance) 
+HDC GameWindow::Init(HINSTANCE hinstance)
 {
 	m_hinstance = hinstance;
 
-	CreateGameWindow("IN3026 Template");
+	CreateGameWindow("GHOSTLAND");
 
 	// If we never got a valid window handle, quit the program
-	if(m_hwnd == NULL) {
+	if (m_hwnd == NULL) {
 		return NULL;
-	} else {
+	}
+	else {
 		// INIT OpenGL
 		InitOpenGL();
 		return m_hdc;
 	}
 }
 
-void GameWindow::CreateGameWindow(LPSTR title) 
+void GameWindow::CreateGameWindow(LPSTR title)
 {
 	m_sClass = title;
 	WNDCLASS hwnd_class;
@@ -44,7 +45,7 @@ void GameWindow::CreateGameWindow(LPSTR title)
 	hwnd_class.hInstance = m_hinstance;
 	hwnd_class.hIcon = LoadIcon(NULL, IDI_APPLICATION);
 	hwnd_class.hCursor = LoadCursor(NULL, IDC_ARROW);
-	hwnd_class.hbrBackground = (HBRUSH) (COLOR_WINDOW + 1);
+	hwnd_class.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
 	hwnd_class.lpszClassName = m_sClass;
 
 	RegisterClass(&hwnd_class);
@@ -55,7 +56,8 @@ void GameWindow::CreateGameWindow(LPSTR title)
 
 		ChangeToFullScreen();
 		ShowCursor(FALSE);
-	} else {
+	}
+	else {
 		style = WS_OVERLAPPEDWINDOW | WS_CLIPSIBLINGS | WS_CLIPCHILDREN;
 		ShowCursor(FALSE);
 	}
@@ -78,13 +80,13 @@ void GameWindow::CreateGameWindow(LPSTR title)
 	}
 }
 
-void GameWindow::InitOpenGL() 
-{  
+void GameWindow::InitOpenGL()
+{
 	GetClientRect(m_hwnd, &m_dimensions);
 	m_hdc = GetDC(m_hwnd);
 
 	if (!SetupPixelFormat())
-		PostQuitMessage (0);
+		PostQuitMessage(0);
 
 	m_hrc = wglCreateContext(m_hdc);
 	wglMakeCurrent(m_hdc, m_hrc);
@@ -101,7 +103,7 @@ void GameWindow::InitOpenGL()
 
 bool GameWindow::SetupPixelFormat()
 {
-	PIXELFORMATDESCRIPTOR pfd = {0};
+	PIXELFORMATDESCRIPTOR pfd = { 0 };
 	pfd.nSize = sizeof(PIXELFORMATDESCRIPTOR);
 	pfd.nVersion = 1;
 
@@ -127,23 +129,23 @@ bool GameWindow::SetupPixelFormat()
 	return true;
 }
 
-void GameWindow::SizeOpenGLScreen(int width, int height) 
+void GameWindow::SizeOpenGLScreen(int width, int height)
 {
-	if (height==0) {
+	if (height == 0) {
 		height = 1;
 	}
 
-	glViewport(0,0,width,height);
+	glViewport(0, 0, width, height);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	gluPerspective(45.0f,(GLfloat)width/(GLfloat)height, 0.5f, 3000.0f);
+	gluPerspective(45.0f, (GLfloat)width / (GLfloat)height, 0.5f, 3000.0f);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 }
 
 void GameWindow::ChangeToFullScreen()
 {
-	DEVMODE settings = {0};
+	DEVMODE settings = { 0 };
 
 	if (!EnumDisplaySettings(NULL, ENUM_CURRENT_SETTINGS, &settings)) {
 		MessageBox(NULL, "Could not retrieve display settings.", "Error", MB_OK);
@@ -187,23 +189,23 @@ void GameWindow::UpdateFrameRate(double dt)
 	static float elapsedTime = 0.0f;
 
 	// Increase the elapsed time and frame counter
-	elapsedTime += (float) dt;
-    framesPerSecond++;
+	elapsedTime += (float)dt;
+	framesPerSecond++;
 
 	// Now we want to subtract the current time by the last time that was stored
 	// to see if the time elapsed has been over a second, which means we found our FPS.
-    if(elapsedTime > 1.0f )
-    {
+	if (elapsedTime > 1.0f)
+	{
 		elapsedTime = 0.0f;
-		
+
 		//// Copy the frames per second into a string to display in the window title bar
-		char strFrameRate[50] = {0};			// We will store the string here for the window title
+		char strFrameRate[50] = { 0 };			// We will store the string here for the window title
 		sprintf_s(strFrameRate, "Current Frames Per Second: %d", int(framesPerSecond));
 
 		//// Set the window title bar to our string
 		SetWindowText(GameWindow::m_hwnd, strFrameRate);
 
 		// Reset the frames per second
-        framesPerSecond = 0;
-    }
+		framesPerSecond = 0;
+	}
 }
